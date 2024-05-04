@@ -44,6 +44,7 @@
                 </Border>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="New nickname" Click="MakeNewRandomNicknameBtn_Click"/>
                 <Button Content="Cancel and exit" Click="CancelBtn_Click"/>
                 <Button Content="Go!" Click="ConfirmBtn_Click"/>
             </StackPanel>
