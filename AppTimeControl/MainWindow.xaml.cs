@@ -10,8 +10,8 @@ namespace AppTimeControl
     {
         public MainWindow()
         {
-            if(!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "app_settings.settings")) ||
-                !File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json")))
+            if(!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json")) ||
+                !File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json")))
             {
                 WelcomeWindow welcomeWindow = new WelcomeWindow();
                 welcomeWindow.Show();

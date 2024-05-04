@@ -10,7 +10,44 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow"
         ResizeMode="NoResize">
-    <Grid>
-        
+    <Grid Background="{StaticResource DefalutBackgroundColor}">
+        <Grid Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="15"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Welcome!" FontSize="42"/>
+            <StackPanel Grid.Row="1">
+                <TextBlock FontSize="24" Margin="0 10">
+                        Privacy Information:
+                </TextBlock>
+                <TextBlock FontSize="16" TextWrapping="WrapWithOverflow">
+                        AppTimeControl is designed to help you manage your time efficiently by collecting usage data of your applications.
+                        This data is used locally on your device to provide insights into your app usage patterns, helping you stay productive and focused.
+                        Rest assured that all data collected remains strictly on your device and is not shared with any third parties. Your privacy and data security are of utmost importance to us.
+                </TextBlock>
+                <TextBlock FontSize="24" Margin="0 10">
+                        Get Started:
+                </TextBlock>
+                <TextBlock FontSize="16" TextWrapping="WrapWithOverflow">
+                        Take the first step towards better time management and increased productivity with AppTimeControl! Fill a little form below and than click "Go!" to begin customizing time limits for your favorite applications and take control of your digital habits.
+                        We appreciate your trust in us and are committed to ensuring a secure and private experience for all our users.
+                </TextBlock>
+                <Border Margin="0 15 0 0">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="What is your nickname (or your real name)?" FontSize="18"/>
+                        <TextBox FontSize="24" x:Name="NicknameTB"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Cancel and exit" Click="CancelBtn_Click"/>
+                <Button Content="Go!" Click="ConfirmBtn_Click"/>
+            </StackPanel>
+            <TextBlock Text="AppTimeControl made by Insotheo(c)" Grid.Row="4"/>
+        </Grid>
     </Grid>
 </Window>

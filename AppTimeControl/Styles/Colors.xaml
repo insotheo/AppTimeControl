@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="DefalutBackgroundColor"
+                     Color="#2d2e47"/>
+
+    <SolidColorBrush x:Key="DefaultTextColor"
+                     Color="#cbcbcb"/>
+
+    <SolidColorBrush x:Key="DefalutTextboxBackColor"
+                     Color="#16194c"/>
+
+    <SolidColorBrush x:Key="DefalutButtonBackColor"
+                 Color="#252525"/>
+
+</ResourceDictionary>
