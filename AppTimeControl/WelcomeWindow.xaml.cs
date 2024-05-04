@@ -1,9 +1,8 @@
-﻿using System.Windows;
-using System;
-using AppTimeControl.AppDataClasses;
-using System.IO;
+﻿using AppTimeControl.AppDataClasses;
 using Newtonsoft.Json;
-using AppTimeControl.MessageBoxPressets;
+using System;
+using System.IO;
+using System.Windows;
 
 namespace AppTimeControl
 {
@@ -41,21 +40,21 @@ namespace AppTimeControl
             if (string.IsNullOrEmpty(NicknameTB.Text) || NicknameTB.Text.Trim() == randomNickname)
             {
                 isSure = false;
-                if(MessageBox.Show($"Are you sure you want to use a random nickname (\"{randomNickname}\")?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (MessageBox.Show($"Are you sure you want to use a random nickname (\"{randomNickname}\")?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     isSure = true;
                 }
             }
-            if(isSure)
+            if (isSure)
             {
-                    UserData newUser = new UserData(NicknameTB.Text.Trim());
-                    FileStream userFile = File.Create(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json"));
-                    userFile.Close();
-                    File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json"), JsonConvert.SerializeObject(newUser));
-                    AppData newAppData = new AppData();
-                    FileStream appDataFile = File.Create(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json"));
-                    appDataFile.Close();
-                    File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json"), JsonConvert.SerializeObject(newAppData, Formatting.Indented));
+                UserData newUser = new UserData(NicknameTB.Text.Trim());
+                FileStream userFile = File.Create(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json"));
+                userFile.Close();
+                File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json"), JsonConvert.SerializeObject(newUser));
+                AppData newAppData = new AppData();
+                FileStream appDataFile = File.Create(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json"));
+                appDataFile.Close();
+                File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json"), JsonConvert.SerializeObject(newAppData, Formatting.Indented));
             }
         }
 
