@@ -61,6 +61,7 @@
     <Compile Include="AppDataClasses\AppData.cs" />
     <Compile Include="AppDataClasses\ApplicationInformation.cs" />
     <Compile Include="AppDataClasses\UserData.cs" />
+    <Compile Include="MessageBoxPressets\MessBox.cs" />
     <Compile Include="WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
