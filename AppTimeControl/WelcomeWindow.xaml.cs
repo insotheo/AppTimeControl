@@ -3,6 +3,7 @@ using System;
 using AppTimeControl.AppDataClasses;
 using System.IO;
 using Newtonsoft.Json;
+using AppTimeControl.MessageBoxPressets;
 
 namespace AppTimeControl
 {
@@ -47,8 +48,6 @@ namespace AppTimeControl
             }
             if(isSure)
             {
-                try
-                {
                     UserData newUser = new UserData(NicknameTB.Text.Trim());
                     FileStream userFile = File.Create(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json"));
                     userFile.Close();
@@ -57,11 +56,6 @@ namespace AppTimeControl
                     FileStream appDataFile = File.Create(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json"));
                     appDataFile.Close();
                     File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json"), JsonConvert.SerializeObject(newAppData, Formatting.Indented));
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
             }
         }
 
