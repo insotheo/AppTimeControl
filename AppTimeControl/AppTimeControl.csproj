@@ -61,10 +61,18 @@
     <Compile Include="AppDataClasses\AppData.cs" />
     <Compile Include="AppDataClasses\ApplicationInformation.cs" />
     <Compile Include="AppDataClasses\UserData.cs" />
+    <Compile Include="CreationWindow.xaml.cs">
+      <DependentUpon>CreationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MessageBoxPressets\MessBox.cs" />
+    <Compile Include="UITextChanger.cs" />
     <Compile Include="WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="CreationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

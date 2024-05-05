@@ -6,9 +6,36 @@
         xmlns:local="clr-namespace:AppTimeControl"
         mc:Ignorable="d"
         Title="AppTimeControl" 
-        Height="450" Width="800"
+        Height="500" Width="800"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-        
+    <Grid Background="{StaticResource DefalutBackgroundColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Background="{StaticResource DefalutTextboxBackColor}">
+            <TextBlock x:Name="GreetingTB" Text="Hello, World!" FontSize="32"/>
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="FontSize" Value="18"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <ListBox x:Name="AppsLB" Background="Transparent" BorderThickness="0"/>
+                <Button Content="Add new listener" Grid.Row="1" Click="AddBtn_Click"/>
+                <Button Content="Remove selected" Grid.Row="2" Click="RemoveBtn_Click"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

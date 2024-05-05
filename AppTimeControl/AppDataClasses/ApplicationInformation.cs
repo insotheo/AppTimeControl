@@ -6,17 +6,17 @@ namespace AppTimeControl.AppDataClasses
     {
         public TimeSpan TimeLimit;
         public TimeSpan TimeDone;
-        public TimeSpan TimeToNotifyBeforeClosing;
+        public TimeSpan WorkedInTotal;
         public string ProccessName;
-        public bool NotifyAboutClosing;
+        public string AppName;
 
-        public ApplicationInformation(string proccessName, TimeSpan limit, TimeSpan timeToNotifyBeforeClosing, bool notifyAboutClosing)
+        public ApplicationInformation(string proccessName, string appName, TimeSpan limit)
         {
             ProccessName = proccessName;
             TimeLimit = limit;
+            AppName = appName;
             TimeDone = TimeSpan.Zero;
-            TimeToNotifyBeforeClosing = timeToNotifyBeforeClosing;
-            NotifyAboutClosing = notifyAboutClosing;
+            WorkedInTotal = TimeSpan.Zero;
         }
     }
 }
