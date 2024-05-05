@@ -29,6 +29,7 @@ namespace AppTimeControl
             appData = JsonConvert.DeserializeObject<AppData>(File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json")));
             UITextChanger.ChangeGreetingText(ref GreetingTB, ref username);
             UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
+            Notificator.SendNotification("AppTimeControl inited!");
         }
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
