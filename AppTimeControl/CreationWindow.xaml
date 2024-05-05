@@ -21,7 +21,7 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Let's create a new listener!" FontSize="24"/>
+        <TextBlock x:Name="TopTextTB" Text="Let's create a new listener!" FontSize="24"/>
         <TextBlock Text="Enter the process name below:" FontSize="24" Grid.Row="1" VerticalAlignment="Bottom"/>
         <TextBox x:Name="ProcessNameTB" Grid.Row="2"/>
         <TextBlock Text="Enter the application name below:" FontSize="24" Grid.Row="3" VerticalAlignment="Bottom"/>
@@ -30,7 +30,7 @@
         <ComboBox x:Name="LimitCB" Grid.Row="6" IsEditable="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18" Margin="5" HorizontalAlignment="Left" Width="150"/>
         <StackPanel Grid.Row="7" Orientation="Horizontal">
             <Button Content="Cancel" Click="CancelBtn_Click"/>
-            <Button Content="Create" Click="CreateBtn_Click"/>
+            <Button Content="Create" x:Name="CreateBtn" Click="CreateBtn_Click"/>
         </StackPanel>
     </Grid>
 </Window>

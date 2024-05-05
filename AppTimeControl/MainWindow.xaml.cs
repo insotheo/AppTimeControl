@@ -82,5 +82,18 @@ namespace AppTimeControl
             UITextChanger.AddItemsToList(ref AppsLB, ref sortedList);
             sortedList.Clear();
         }
+
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CreationWindow creation = new CreationWindow(appData.Apps.Select(x => x.AppName).ToArray<string>(), appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()));
+            creation.ShowDialog();
+            if (creation.listener == null)
+            {
+                return;
+            }
+            appData.Apps[appData.Apps.IndexOf(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()))] = creation.listener;
+            SearchTB.Text = String.Empty;
+            UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
+        }
     }
 }
