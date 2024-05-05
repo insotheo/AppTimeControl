@@ -47,6 +47,10 @@ namespace AppTimeControl
             }
             if (isSure)
             {
+                if (string.IsNullOrEmpty(NicknameTB.Text.Trim()))
+                {
+                    NicknameTB.Text = randomNickname;
+                }
                 UserData newUser = new UserData(NicknameTB.Text.Trim());
                 FileStream userFile = File.Create(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json"));
                 userFile.Close();
@@ -55,6 +59,9 @@ namespace AppTimeControl
                 FileStream appDataFile = File.Create(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json"));
                 appDataFile.Close();
                 File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json"), JsonConvert.SerializeObject(newAppData, Formatting.Indented));
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
             }
         }
 

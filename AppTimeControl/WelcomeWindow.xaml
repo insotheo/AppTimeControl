@@ -27,7 +27,7 @@
                 <TextBlock FontSize="16" TextWrapping="WrapWithOverflow">
                         AppTimeControl is designed to help you manage your time efficiently by collecting usage data of your applications.
                         This data is used locally on your device to provide insights into your app usage patterns, helping you stay productive and focused.
-                        Rest assured that all data collected remains strictly on your device and is not shared with any third parties. Your privacy and data security are of utmost importance to us.
+                        Rest assured that all data collected remains strictly on your device and is not shared with any third parties. Your privacy and data security are of utmost importance to us. Clicking "Go!" you agree to the privacy and license terms.
                 </TextBlock>
                 <TextBlock FontSize="24" Margin="0 10">
                         Get Started:
