@@ -50,7 +50,7 @@ namespace AppTimeControl
                 if (string.IsNullOrEmpty(ProcessNameTB.Text.Trim()) ||
                     string.IsNullOrEmpty(AppNameTB.Text.Trim()) ||
                     string.IsNullOrEmpty(LimitCB.Text.Trim()) ||
-                    TimeSpan.Parse(LimitCB.Text.Trim()) == TimeSpan.Zero)
+                    TimeSpan.Parse(LimitCB.Text.Trim()) <= TimeSpan.Zero)
                 {
                     throw new Exception("None of the fields can be null or empty!");
                 }

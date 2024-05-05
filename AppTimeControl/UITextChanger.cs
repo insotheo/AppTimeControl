@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace AppTimeControl
 {
@@ -37,6 +38,25 @@ namespace AppTimeControl
             {
                 listBox.Items.Add(app.AppName);
             }
+        }
+        
+        public static void ShowStats(ref TextBlock appNameTB, ref TextBlock processNameTB, ref TextBlock timeLeftTB, ref ProgressBar timeLeftPB, ref TextBlock totalTimeTB, ApplicationInformation app)
+        {
+            int percent = (int)(calcPercent(ref app.TimeLimit, ref app.TimeDone) * 100);
+            appNameTB.Text = app.AppName;
+            processNameTB.Text = "Process name: " + app.ProccessName;
+            timeLeftTB.Text = $"{app.TimeDone.ToString()}/{app.TimeLimit.ToString()} ({percent}%)";
+            timeLeftPB.Value = percent;
+            if(timeLeftPB.Value >= 100)
+            {
+                timeLeftPB.Foreground = Brushes.Red;
+            }
+            totalTimeTB.Text = "Total time: " + app.WorkedInTotal.ToString();
+        }
+
+        private static float calcPercent(ref TimeSpan total, ref TimeSpan done)
+        {
+            return (float)Math.Round((total.TotalMilliseconds * done.TotalMilliseconds) / 100, 2);
         }
 
     }

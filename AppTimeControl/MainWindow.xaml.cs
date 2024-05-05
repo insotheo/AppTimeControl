@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Documents;
 using AppTimeControl.AppDataClasses;
 using Newtonsoft.Json;
 
@@ -22,7 +21,7 @@ namespace AppTimeControl
                 !File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json")))
             {
                 WelcomeWindow welcomeWindow = new WelcomeWindow();
-                welcomeWindow.Show();
+                welcomeWindow.ShowDialog();
                 this.Close();
             }
             InitializeComponent();
@@ -50,14 +49,25 @@ namespace AppTimeControl
             {
                 return;
             }
-            appData.Apps.Remove(appData.Apps.Where(x => x.AppName == AppsLB.SelectedItem.ToString()).First());
+            appData.Apps.Remove(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()));
             UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
             SearchTB.Text = String.Empty;
         }
 
         private void AppsLB_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-
+            if(AppsLB.SelectedItem == null || AppsLB.Items.Count == 0)
+            {
+                PropertiesGrid.Visibility = Visibility.Hidden;
+                return;
+            }
+            PropertiesGrid.Visibility = Visibility.Visible;
+            UITextChanger.ShowStats(ref AppNameTB,
+                ref ProcessNameTB,
+                ref TimeLeftTB,
+                ref TimeLeftPB,
+                ref TotalTimeTB,
+                appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()));
         }
 
         private void SearchTB_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)

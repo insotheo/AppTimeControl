@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="230"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Grid>
+            <Grid Background="#08444e">
                 <Grid.Resources>
                     <Style TargetType="{x:Type ListBoxItem}">
                         <Setter Property="FontSize" Value="18"/>
@@ -37,6 +37,21 @@
                 <ListBox x:Name="AppsLB" Background="Transparent" BorderThickness="0" SelectionChanged="AppsLB_SelectionChanged" Grid.Row="1"/>
                 <Button Content="Add new listener" Grid.Row="2" Click="AddBtn_Click"/>
                 <Button Content="Remove selected" Grid.Row="3" Click="RemoveBtn_Click"/>
+            </Grid>
+            <Grid Grid.Column="1" x:Name="PropertiesGrid" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="AppNameTB" FontWeight="Bold" Text="AppName" FontSize="48"/>
+                <TextBlock x:Name="ProcessNameTB" Text="processName" FontSize="12" Grid.Row="1"/>
+                <TextBlock x:Name="TimeLeftTB" Text="timeLeft" FontSize="26" Grid.Row="2"/>
+                <ProgressBar x:Name="TimeLeftPB" Grid.Row="3" Foreground="Green" Margin="2"/>
+                <TextBlock x:Name="TotalTimeTB" Text="totalTime" FontSize="24" Grid.Row="4"/>
             </Grid>
         </Grid>
     </Grid>

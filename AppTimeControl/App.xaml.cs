@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Threading;
+using System.Windows;
+using System.Globalization;
 
 namespace AppTimeControl
 {
@@ -7,6 +9,11 @@ namespace AppTimeControl
     /// </summary>
     public partial class App : Application
     {
+
+        public App() : base()
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+        }
 
     }
 }
