@@ -1,6 +1,7 @@
 ﻿using AppTimeControl.AppDataClasses;
 using AppTimeControl.MessageBoxPressets;
 using System;
+using System.Linq;
 using System.Windows;
 
 namespace AppTimeControl
@@ -10,11 +11,14 @@ namespace AppTimeControl
     /// </summary>
     public partial class CreationWindow : Window
     {
-        public ApplicationInformation listener = null; 
+        public ApplicationInformation listener = null;
 
-        public CreationWindow()
+        private string[] bannedNames;
+
+        public CreationWindow(string[] _bannedNames)
         {
             InitializeComponent();
+            bannedNames = _bannedNames;
             foreach(string time in new string[] { 
                 TimeSpan.FromHours(0.5f).ToString(),
                 TimeSpan.FromHours(1f).ToString(),
@@ -49,6 +53,10 @@ namespace AppTimeControl
                     TimeSpan.Parse(LimitCB.Text.Trim()) == TimeSpan.Zero)
                 {
                     throw new Exception("None of the fields can be null or empty!");
+                }
+                if (bannedNames.Contains<string>(AppNameTB.Text.Trim()))
+                {
+                    throw new Exception("You are not allowed to create two listeners with the same name!");
                 }
                 listener = new ApplicationInformation(ProcessNameTB.Text.Trim(), AppNameTB.Text.Trim(), TimeSpan.Parse(LimitCB.Text.Trim()));
                 this.Close();

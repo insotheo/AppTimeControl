@@ -28,13 +28,15 @@
                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
                     <RowDefinition/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
-                <ListBox x:Name="AppsLB" Background="Transparent" BorderThickness="0"/>
-                <Button Content="Add new listener" Grid.Row="1" Click="AddBtn_Click"/>
-                <Button Content="Remove selected" Grid.Row="2" Click="RemoveBtn_Click"/>
+                <TextBox x:Name="SearchTB" Margin="2" ToolTip="Use this textbox to find the listener you need! Enter empty string to show all!" TextChanged="SearchTB_TextChanged"/>
+                <ListBox x:Name="AppsLB" Background="Transparent" BorderThickness="0" SelectionChanged="AppsLB_SelectionChanged" Grid.Row="1"/>
+                <Button Content="Add new listener" Grid.Row="2" Click="AddBtn_Click"/>
+                <Button Content="Remove selected" Grid.Row="3" Click="RemoveBtn_Click"/>
             </Grid>
         </Grid>
     </Grid>

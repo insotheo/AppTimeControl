@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Windows;
+using System.Windows.Documents;
 using AppTimeControl.AppDataClasses;
 using Newtonsoft.Json;
 
@@ -31,7 +34,7 @@ namespace AppTimeControl
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            CreationWindow creation = new CreationWindow();
+            CreationWindow creation = new CreationWindow(appData.Apps.Select(x => x.AppName).ToArray<string>());
             creation.ShowDialog();
             if (creation.listener == null)
             {
@@ -47,8 +50,27 @@ namespace AppTimeControl
             {
                 return;
             }
-            appData.Apps.RemoveAt(AppsLB.SelectedIndex);
+            appData.Apps.Remove(appData.Apps.Where(x => x.AppName == AppsLB.SelectedItem.ToString()).First());
             UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
+            SearchTB.Text = String.Empty;
+        }
+
+        private void AppsLB_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void SearchTB_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            AppsLB.SelectedItem = null;
+            if (string.IsNullOrEmpty(SearchTB.Text.Trim()))
+            {
+                UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
+                return;
+            }
+            var sortedList = appData.Apps.Where(x => x.AppName.ToLower().Contains(SearchTB.Text.Trim().ToLower())).ToList();
+            UITextChanger.AddItemsToList(ref AppsLB, ref sortedList);
+            sortedList.Clear();
         }
     }
 }
