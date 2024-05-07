@@ -2,8 +2,11 @@
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Threading;
 using AppTimeControl.AppDataClasses;
 using Newtonsoft.Json;
+using System.Diagnostics;
+using System.ComponentModel;
 
 namespace AppTimeControl
 {
@@ -14,6 +17,7 @@ namespace AppTimeControl
     {
         private string username;
         private AppData appData;
+        private Thread mainTimerThread;
 
         public MainWindow()
         {
@@ -29,8 +33,49 @@ namespace AppTimeControl
             appData = JsonConvert.DeserializeObject<AppData>(File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json")));
             UITextChanger.ChangeGreetingText(ref GreetingTB, ref username);
             UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
+            mainTimerThread = new Thread(TimerLoop);
             Notificator.SendNotification("AppTimeControl inited!");
+            mainTimerThread.Start();
         }
+
+
+        private void TimerLoop()
+        {
+            try
+            {
+                while (mainTimerThread.IsAlive)
+                {
+                    if (appData.Apps.Count > 0)
+                    {
+                        foreach (ApplicationInformation app in appData.Apps)
+                        {
+                            Process[] appProcess = Process.GetProcessesByName(app.ProccessName);
+                            if (appProcess.Length > 0)
+                            {
+                                app.TimeDone = TimeSpan.FromSeconds(app.TimeDone.TotalSeconds + 1);
+                                app.WorkedInTotal = TimeSpan.FromSeconds(app.WorkedInTotal.TotalSeconds + 1);
+                                if (app.TimeLimit.TotalSeconds - app.TimeLimit.TotalSeconds == 300)
+                                {
+                                    Notificator.SendNotification("5 minutes left for " + app.AppName + $"({app.ProccessName})");
+                                }
+                                if (app.TimeDone >= app.TimeLimit)
+                                {
+                                    foreach (Process process in appProcess)
+                                    {
+                                        process.Kill();
+                                    }
+                                }
+                            }
+                            appProcess = null;
+                        }
+                        AppData.SaveToFile(ref appData);
+                        Thread.Sleep(1000);
+                    }
+                }
+            }
+            catch { }
+        }
+
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -95,6 +140,11 @@ namespace AppTimeControl
             appData.Apps[appData.Apps.IndexOf(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()))] = creation.listener;
             SearchTB.Text = String.Empty;
             UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            mainTimerThread.Abort();
         }
     }
 }

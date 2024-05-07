@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="AppTimeControl" 
         Height="500" Width="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        Closing="Window_Closing">
     <Grid Background="{StaticResource DefalutBackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
