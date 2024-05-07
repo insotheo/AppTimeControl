@@ -8,7 +8,8 @@
         Title="AppTimeControl" 
         Height="500" Width="800"
         WindowStartupLocation="CenterScreen"
-        Closing="Window_Closing">
+        Closing="Window_Closing"
+        GotFocus="Window_GotFocus">
     <Grid Background="{StaticResource DefalutBackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -39,7 +40,7 @@
                 <Button Content="Add new listener" Grid.Row="2" Click="AddBtn_Click"/>
                 <Button Content="Remove selected" Grid.Row="3" Click="RemoveBtn_Click"/>
             </Grid>
-            <Grid Grid.Column="1" x:Name="PropertiesGrid" Visibility="Hidden">
+            <Grid Grid.Column="1" x:Name="PropertiesGrid" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="30"/>
@@ -54,7 +55,10 @@
                 <TextBlock x:Name="TimeLeftTB" Text="timeLeft" FontSize="26" Grid.Row="2"/>
                 <ProgressBar x:Name="TimeLeftPB" Grid.Row="3" Foreground="Green" Margin="2"/>
                 <TextBlock x:Name="TotalTimeTB" Text="totalTime" FontSize="24" Grid.Row="4"/>
-                <Button Content="Edit" Grid.Row="5" Click="EditBtn_Click" HorizontalAlignment="Right" FontSize="18"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Right">
+                    <Button Content="Update" Click="UpdateStatsBtn_Click" FontSize="18"/>
+                    <Button Content="Edit" Click="EditBtn_Click" FontSize="18"/>
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>

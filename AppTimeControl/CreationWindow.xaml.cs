@@ -80,9 +80,10 @@ namespace AppTimeControl
                 if (string.IsNullOrEmpty(ProcessNameTB.Text.Trim()) ||
                     string.IsNullOrEmpty(AppNameTB.Text.Trim()) ||
                     string.IsNullOrEmpty(LimitCB.Text.Trim()) ||
-                    TimeSpan.Parse(LimitCB.Text.Trim()) <= TimeSpan.Zero)
+                    TimeSpan.Parse(LimitCB.Text.Trim()) <= TimeSpan.Zero ||
+                    TimeSpan.Parse(LimitCB.Text.Trim()) >= new TimeSpan(24, 0, 0))
                 {
-                    throw new Exception("None of the fields can be null or empty!");
+                    throw new Exception("None of the fields can be null or empty!\nAnd time limit can't be more than 24 hours!");
                 }
                 if (bannedNames.Contains<string>(AppNameTB.Text.Trim()))
                 {
