@@ -137,7 +137,9 @@ namespace AppTimeControl
             {
                 return;
             }
-            appData.Apps[appData.Apps.IndexOf(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()))] = creation.listener;
+            appData.Apps[appData.Apps.IndexOf(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()))].AppName = creation.listener.AppName;
+            appData.Apps[appData.Apps.IndexOf(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()))].ProccessName = creation.listener.ProccessName;
+            appData.Apps[appData.Apps.IndexOf(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()))].TimeLimit = creation.listener.TimeLimit;
             SearchTB.Text = String.Empty;
             UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
         }
