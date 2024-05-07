@@ -19,17 +19,17 @@ namespace AppTimeControl
         {
             InitializeComponent();
             bannedNames = _bannedNames;
-            foreach(string time in new string[] { 
+            foreach (string time in new string[] {
                 TimeSpan.FromHours(0.5f).ToString(),
                 TimeSpan.FromHours(1f).ToString(),
                 TimeSpan.FromHours(2f).ToString(),
-                TimeSpan.FromHours(2.5f).ToString(), 
-                TimeSpan.FromHours(3f).ToString(), 
-                TimeSpan.FromHours(3.5f).ToString(), 
-                TimeSpan.FromHours(4f).ToString(), 
-                TimeSpan.FromHours(5f).ToString(), 
-                TimeSpan.FromHours(10f).ToString(), 
-                TimeSpan.FromHours(12f).ToString(), 
+                TimeSpan.FromHours(2.5f).ToString(),
+                TimeSpan.FromHours(3f).ToString(),
+                TimeSpan.FromHours(3.5f).ToString(),
+                TimeSpan.FromHours(4f).ToString(),
+                TimeSpan.FromHours(5f).ToString(),
+                TimeSpan.FromHours(10f).ToString(),
+                TimeSpan.FromHours(12f).ToString(),
             })
             {
                 LimitCB.Items.Add(time);
@@ -101,7 +101,7 @@ namespace AppTimeControl
                 listener = new ApplicationInformation(ProcessNameTB.Text.Trim(), AppNameTB.Text.Trim(), TimeSpan.Parse(LimitCB.Text.Trim()));
                 this.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessBox.ShowError(ex.Message);
             }

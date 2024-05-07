@@ -39,7 +39,7 @@ namespace AppTimeControl
                 listBox.Items.Add(app.AppName);
             }
         }
-        
+
         public static void ShowStats(ref TextBlock appNameTB, ref TextBlock processNameTB, ref TextBlock timeLeftTB, ref ProgressBar timeLeftPB, ref TextBlock totalTimeTB, ApplicationInformation app)
         {
             int percent = (int)(calcPercent(ref app.TimeLimit, ref app.TimeDone) * 100);
@@ -47,7 +47,7 @@ namespace AppTimeControl
             processNameTB.Text = "Process name: " + app.ProccessName;
             timeLeftTB.Text = $"{app.TimeDone.ToString()}/{app.TimeLimit.ToString()} ({percent}%)";
             timeLeftPB.Value = percent;
-            if(timeLeftPB.Value >= 100)
+            if (timeLeftPB.Value >= 100)
             {
                 timeLeftPB.Foreground = Brushes.Red;
             }

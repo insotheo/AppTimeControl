@@ -1,12 +1,12 @@
-﻿using System;
+﻿using AppTimeControl.AppDataClasses;
+using Newtonsoft.Json;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Windows;
 using System.Threading;
-using AppTimeControl.AppDataClasses;
-using Newtonsoft.Json;
-using System.Diagnostics;
-using System.ComponentModel;
+using System.Windows;
 
 namespace AppTimeControl
 {
@@ -91,7 +91,7 @@ namespace AppTimeControl
 
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(AppsLB.SelectedItem == null || AppsLB.Items.Count == 0)
+            if (AppsLB.SelectedItem == null || AppsLB.Items.Count == 0)
             {
                 return;
             }
@@ -102,7 +102,7 @@ namespace AppTimeControl
 
         private void AppsLB_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if(AppsLB.SelectedItem == null || AppsLB.Items.Count == 0)
+            if (AppsLB.SelectedItem == null || AppsLB.Items.Count == 0)
             {
                 PropertiesGrid.Visibility = Visibility.Hidden;
                 return;
@@ -137,9 +137,10 @@ namespace AppTimeControl
             {
                 return;
             }
-            appData.Apps[appData.Apps.IndexOf(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()))].AppName = creation.listener.AppName;
-            appData.Apps[appData.Apps.IndexOf(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()))].ProccessName = creation.listener.ProccessName;
-            appData.Apps[appData.Apps.IndexOf(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()))].TimeLimit = creation.listener.TimeLimit;
+            int index = appData.Apps.IndexOf(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()));
+            appData.Apps[index].AppName = creation.listener.AppName;
+            appData.Apps[index].ProccessName = creation.listener.ProccessName;
+            appData.Apps[index].TimeLimit = creation.listener.TimeLimit;
             SearchTB.Text = String.Empty;
             UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
         }
