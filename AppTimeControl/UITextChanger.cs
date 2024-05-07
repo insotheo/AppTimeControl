@@ -42,7 +42,7 @@ namespace AppTimeControl
 
         public static void ShowStats(ref TextBlock appNameTB, ref TextBlock processNameTB, ref TextBlock timeLeftTB, ref ProgressBar timeLeftPB, ref TextBlock totalTimeTB, ApplicationInformation app)
         {
-            int percent = (int)(calcPercent(ref app.TimeLimit, ref app.TimeDone) * 100);
+            int percent = (int)(calcPercent(ref app.TimeLimit, ref app.TimeDone));
             appNameTB.Text = app.AppName;
             processNameTB.Text = "Process name: " + app.ProccessName;
             timeLeftTB.Text = $"{app.TimeDone.ToString()}/{app.TimeLimit.ToString()} ({percent}%)";
@@ -51,13 +51,16 @@ namespace AppTimeControl
             {
                 timeLeftPB.Foreground = Brushes.Red;
             }
+            else
+            {
+                timeLeftPB.Foreground = Brushes.Green;
+            }
             totalTimeTB.Text = "Total time: " + app.WorkedInTotal.ToString();
         }
 
         private static float calcPercent(ref TimeSpan total, ref TimeSpan done)
         {
-            return (float)Math.Round((total.TotalMilliseconds * done.TotalMilliseconds) / 100, 2);
+            return (float)Math.Round((float)((100 * done.TotalSeconds) / total.TotalSeconds), 2);
         }
-
     }
 }

@@ -40,7 +40,7 @@
                 <Button Content="Add new listener" Grid.Row="2" Click="AddBtn_Click"/>
                 <Button Content="Remove selected" Grid.Row="3" Click="RemoveBtn_Click"/>
             </Grid>
-            <Grid Grid.Column="1" x:Name="PropertiesGrid" Visibility="Visible">
+            <Grid Grid.Column="1" x:Name="PropertiesGrid" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="30"/>
