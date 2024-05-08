@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace AppTimeControl
 {
@@ -18,6 +19,7 @@ namespace AppTimeControl
         private string username;
         private AppData appData;
         private Thread mainTimerThread;
+        private DispatcherTimer mainUITimer;
 
         public MainWindow()
         {
@@ -42,10 +44,31 @@ namespace AppTimeControl
             UITextChanger.ChangeGreetingText(ref GreetingTB, ref username);
             UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
             mainTimerThread = new Thread(TimerLoop);
+            mainUITimer = new DispatcherTimer();
+            mainUITimer.Interval = TimeSpan.FromMilliseconds(1000);
+            mainUITimer.Tick += UILoop;
+            this.Activated += (object sender, EventArgs e) => { mainUITimer.Start(); };
+            this.Deactivated += (object sender, EventArgs e) => { mainUITimer.Stop(); };
             Notificator.SendNotification("Hello, World!");
             mainTimerThread.Start();
+            mainUITimer.Start();
         }
 
+        private void UILoop(object sender, EventArgs e)
+        {
+            username = JsonConvert.DeserializeObject<UserData>(File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json"))).UserNickname;
+            UITextChanger.ChangeGreetingText(ref GreetingTB, ref username);
+            if (AppsLB.SelectedItem != null && AppsLB.Items.Count != 0)
+            {
+                PropertiesGrid.Visibility = Visibility.Visible;
+                UITextChanger.ShowStats(ref AppNameTB,
+                    ref ProcessNameTB,
+                    ref TimeLeftTB,
+                    ref TimeLeftPB,
+                    ref TotalTimeTB,
+                    appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()));
+            }
+        }
 
         private void TimerLoop()
         {
@@ -161,30 +184,6 @@ namespace AppTimeControl
             UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
         }
 
-        private void UpdateStatsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            var selItem = AppsLB.SelectedItem;
-            AppsLB.SelectedItem = null;
-            AppsLB.SelectedItem = selItem;
-            selItem = null;
-        }
-
-        private void Window_GotFocus(object sender, RoutedEventArgs e)
-        {
-            username = JsonConvert.DeserializeObject<UserData>(File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json"))).UserNickname;
-            UITextChanger.ChangeGreetingText(ref GreetingTB, ref username);
-            if (AppsLB.SelectedItem != null && AppsLB.Items.Count != 0)
-            {
-                PropertiesGrid.Visibility = Visibility.Visible;
-                UITextChanger.ShowStats(ref AppNameTB,
-                    ref ProcessNameTB,
-                    ref TimeLeftTB,
-                    ref TimeLeftPB,
-                    ref TotalTimeTB,
-                    appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()));
-            }
-        }
-
         private void PrintInfoAboutSelectedMIBtn_Click(object sender, RoutedEventArgs e)
         {
             if (AppsLB.SelectedItem == null || AppsLB.Items.Count == 0)
@@ -204,17 +203,20 @@ namespace AppTimeControl
         private void ShowWindowBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Show();
+            mainUITimer.Start();
         }
 
         private void FinallyCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             mainTimerThread.Abort();
+            mainUITimer.Stop();
             Environment.Exit(0);
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
+            mainUITimer.Stop();
             this.Hide();
         }
     }

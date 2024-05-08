@@ -10,8 +10,7 @@
         Height="500" Width="800"
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing"
-        Icon="/app_icon.ico"
-        GotFocus="Window_GotFocus">
+        Icon="/app_icon.ico">
     <Grid Background="{StaticResource DefalutBackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -58,7 +57,6 @@
                 <ProgressBar x:Name="TimeLeftPB" Grid.Row="3" Foreground="Green" Margin="2"/>
                 <TextBlock x:Name="TotalTimeTB" Text="totalTime" FontSize="24" Grid.Row="4"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Right">
-                    <Button Content="Update" Click="UpdateStatsBtn_Click" FontSize="18"/>
                     <Button Content="Edit" Click="EditBtn_Click" FontSize="18"/>
                 </StackPanel>
             </Grid>
@@ -68,7 +66,7 @@
                 <ContextMenu>
                     <MenuItem Header="Show" Click="ShowWindowBtn_Click"/>
                     <MenuItem Header="Print info about selected" Click="PrintInfoAboutSelectedMIBtn_Click"/>
-                    <MenuItem Header="Finally close" Click="FinallyCloseBtn_Click"/>
+                    <MenuItem Header="Close completely" Click="FinallyCloseBtn_Click"/>
                 </ContextMenu>
             </taskbar:TaskbarIcon.ContextMenu>
         </taskbar:TaskbarIcon>
