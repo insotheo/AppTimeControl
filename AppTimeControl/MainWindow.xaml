@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppTimeControl"
+        xmlns:taskbar="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         Title="AppTimeControl" 
         Height="500" Width="800"
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing"
+        Icon="/app_icon.ico"
         GotFocus="Window_GotFocus">
     <Grid Background="{StaticResource DefalutBackgroundColor}">
         <Grid.RowDefinitions>
@@ -61,5 +63,14 @@
                 </StackPanel>
             </Grid>
         </Grid>
+        <taskbar:TaskbarIcon Visibility="Visible" ToolTipText="AppTimeControl" IconSource="/app_icon.ico">
+            <taskbar:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Show" Click="ShowWindowBtn_Click"/>
+                    <MenuItem Header="Print info about selected" Click="PrintInfoAboutSelectedMIBtn_Click"/>
+                    <MenuItem Header="Finally close" Click="FinallyCloseBtn_Click"/>
+                </ContextMenu>
+            </taskbar:TaskbarIcon.ContextMenu>
+        </taskbar:TaskbarIcon>
     </Grid>
 </Window>

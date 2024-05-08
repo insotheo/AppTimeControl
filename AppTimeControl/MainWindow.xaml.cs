@@ -185,11 +185,37 @@ namespace AppTimeControl
             }
         }
 
-        private void Window_Closing(object sender, CancelEventArgs e)
+        private void PrintInfoAboutSelectedMIBtn_Click(object sender, RoutedEventArgs e)
         {
-            //Only DEV
-            mainTimerThread.Abort();
+            if (AppsLB.SelectedItem == null || AppsLB.Items.Count == 0)
+            {
+                PropertiesGrid.Visibility = Visibility.Hidden;
+                return;
+            }
+            var app = appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString());
+            Notificator.SendNotification("----------\n" +
+                $"Application name: {app.AppName}\n" +
+                $"Process name: {app.ProccessName}\n" +
+                $"Time left: {app.TimeLimit - app.TimeDone}\n" +
+                $"Total time: {app.WorkedInTotal}\n" +
+                "----------");
         }
 
+        private void ShowWindowBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Show();
+        }
+
+        private void FinallyCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            mainTimerThread.Abort();
+            Environment.Exit(0);
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
     }
 }

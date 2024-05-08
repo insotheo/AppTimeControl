@@ -43,5 +43,14 @@
             </Setter.Value>
         </Setter>
     </Style>
-        
+
+
+    <Style TargetType="{x:Type MenuItem}">
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+
+    <Style TargetType="{x:Type ToolTip}">
+        <Setter Property="Foreground" Value="Black"/>
+    </Style>
+    
 </ResourceDictionary>
