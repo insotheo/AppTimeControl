@@ -15,40 +15,57 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="5"/>
                 <RowDefinition Height="15"/>
             </Grid.RowDefinitions>
             <TextBlock Text="Welcome!" FontSize="42"/>
-            <StackPanel Grid.Row="1">
-                <TextBlock FontSize="24" Margin="0 10">
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                <StackPanel>
+                    <StackPanel>
+                        <TextBlock FontSize="24" Margin="0 10">
                         Privacy Information:
-                </TextBlock>
-                <TextBlock FontSize="16" TextWrapping="WrapWithOverflow">
+                        </TextBlock>
+                        <TextBlock FontSize="16" TextWrapping="WrapWithOverflow">
                         AppTimeControl is designed to help you manage your time efficiently by collecting usage data of your applications.
                         This data is used locally on your device to provide insights into your app usage patterns, helping you stay productive and focused.
                         Rest assured that all data collected remains strictly on your device and is not shared with any third parties. Your privacy and data security are of utmost importance to us. Clicking "Go!" you agree to the privacy and license terms.
-                </TextBlock>
-                <TextBlock FontSize="24" Margin="0 10">
+                        </TextBlock>
+                        <TextBlock FontSize="24" Margin="0 10">
                         Get Started:
-                </TextBlock>
-                <TextBlock FontSize="16" TextWrapping="WrapWithOverflow">
+                        </TextBlock>
+                        <TextBlock FontSize="16" TextWrapping="WrapWithOverflow">
                         Take the first step towards better time management and increased productivity with AppTimeControl! Fill a little form below and than click "Go!" to begin customizing time limits for your favorite applications and take control of your digital habits.
                         We appreciate your trust in us and are committed to ensuring a secure and private experience for all our users.
-                </TextBlock>
-                <Border Margin="0 15 0 0">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="What is your nickname (or your real name)?" FontSize="18"/>
-                        <TextBox FontSize="24" x:Name="NicknameTB"/>
+                        </TextBlock>
+                        <Border Margin="0 15 0 0">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="What is your nickname (or your real name)?" FontSize="18"/>
+                                <TextBox FontSize="24" x:Name="NicknameTB"/>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
-                </Border>
-            </StackPanel>
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="New nickname" Click="MakeNewRandomNicknameBtn_Click"/>
-                <Button Content="Cancel and exit" Click="CancelBtn_Click"/>
-                <Button Content="Go!" Click="ConfirmBtn_Click"/>
-            </StackPanel>
-            <TextBlock Text="AppTimeControl made by Insotheo(c)" Grid.Row="4"/>
+                    <Button Content="New nickname" Click="MakeNewRandomNicknameBtn_Click" HorizontalAlignment="Right"/>
+                    <TextBlock FontSize="24" Margin="0 10">
+                        Security Settings:
+                    </TextBlock>
+                    <TextBlock FontSize="16" TextWrapping="WrapWithOverflow" Text="Please enter a password below"/>
+                    <PasswordBox x:Name="PasswordTB"/>
+                    <TextBlock FontSize="16" TextWrapping="WrapWithOverflow">
+                        Now select cases when AppTimeControl will ask you about entering a password:
+                    </TextBlock>
+                    <CheckBox x:Name="CreatingNewListenerCB" Content="Creating a new listener"/>
+                    <CheckBox x:Name="RemovingListenerCB" Content="Removing a listener"/>
+                    <CheckBox x:Name="EditingAppNameOfListenerCB" Content="Editing an application name of listener"/>
+                    <CheckBox x:Name="EditingProcessNameOfListenerCB" Content="Editing a process name of listener"/>
+                    <CheckBox x:Name="EditingTimeLimitOfListenerCB" Content="Editing a time limit of listener"/>
+                    <CheckBox x:Name="ClosingWindowCB" Content="Closing AppTimeControl window"/>
+                    <CheckBox x:Name="ShowingWindowCB" Content="Showing AppTimeControl window"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancel and exit" Click="CancelBtn_Click"/>
+                        <Button Content="Go!" Click="ConfirmBtn_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+            <TextBlock Text="AppTimeControl was made by Insotheo(c)" Grid.Row="2"/>
         </Grid>
     </Grid>
 </Window>

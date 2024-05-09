@@ -13,4 +13,7 @@
     <SolidColorBrush x:Key="DefalutButtonBackColor"
                  Color="#252525"/>
 
+    <SolidColorBrush x:Key="DefaultAccentColor"
+                     Color="#08444e"/>
+
 </ResourceDictionary>

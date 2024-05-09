@@ -19,5 +19,12 @@ namespace AppTimeControl.MessageBoxPressets
             MessageBox.Show(msg.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
+        internal static bool AskPassword()
+        {
+            AuthenticationWindow auth = new AuthenticationWindow();
+            auth.ShowDialog();
+            return auth.IsConfirmed;
+        }
+
     }
 }

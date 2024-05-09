@@ -11,9 +11,22 @@ namespace AppTimeControl
     /// </summary>
     public partial class CreationWindow : Window
     {
+        private enum Mode
+        {
+            Creating, Editing
+        }
+
         public ApplicationInformation listener = null;
-        string beginName;
         private string[] bannedNames;
+        private Mode mode;
+
+        private string beginName;
+        private string beginProcessName;
+        private TimeSpan beginTimeLimit;
+
+        private bool changeAppName;
+        private bool changeProcessName;
+        private bool changeTimeLimit;
 
         public CreationWindow(string[] _bannedNames)
         {
@@ -37,9 +50,10 @@ namespace AppTimeControl
             LimitCB.SelectedIndex = 2;
             TopTextTB.Text = "Let's create a new listener!";
             this.Title = "AppTimeControl - Creating new listener";
+            mode = Mode.Creating;
         }
 
-        public CreationWindow(string[] _bannedNames, ApplicationInformation app)
+        public CreationWindow(string[] _bannedNames, ApplicationInformation app, ref SecurityData security)
         {
             InitializeComponent();
             bannedNames = _bannedNames;
@@ -64,7 +78,13 @@ namespace AppTimeControl
             TopTextTB.Text = "Let's edit it!";
             this.Title = "AppTimeControl - Editing listener";
             beginName = app.AppName;
+            beginProcessName = app.ProccessName;
+            beginTimeLimit = app.TimeLimit;
+            changeAppName = security.ChangingAppNameOfListener;
+            changeProcessName = security.ChangingProcessNameOfListener;
+            changeTimeLimit = security.ChangingTimLimitOfListener;
             CreateBtn.Content = "Apply";
+            mode = Mode.Editing;
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
@@ -87,7 +107,7 @@ namespace AppTimeControl
                 }
                 if (bannedNames.Contains<string>(AppNameTB.Text.Trim()))
                 {
-                    if (beginName == null)
+                    if (mode == Mode.Creating)
                     {
                         throw new Exception("You are not allowed to create two listeners with the same name!");
                     }
@@ -99,7 +119,31 @@ namespace AppTimeControl
                         }
                     }
                 }
-                listener = new ApplicationInformation(ProcessNameTB.Text.Trim(), AppNameTB.Text.Trim(), TimeSpan.Parse(LimitCB.Text.Trim()));
+                bool canCreate = true;
+                if (mode == Mode.Editing)
+                {
+                    canCreate = false;
+                    bool alreadyAskedPassword = false;
+                    if (changeAppName && !beginName.Equals(AppNameTB.Text.Trim()) && !alreadyAskedPassword)
+                    {
+                        canCreate = MessBox.AskPassword();
+                        alreadyAskedPassword = true;
+                    }
+                    if (changeProcessName && !beginProcessName.Equals(ProcessNameTB.Text.Trim()) && !alreadyAskedPassword)
+                    {
+                        canCreate = MessBox.AskPassword();
+                        alreadyAskedPassword = true;
+                    }
+                    if (changeTimeLimit && !beginTimeLimit.Equals(TimeSpan.Parse(LimitCB.Text.Trim())) && !alreadyAskedPassword)
+                    {
+                        canCreate = MessBox.AskPassword();
+                        alreadyAskedPassword = true;
+                    }
+                }
+                if (canCreate)
+                {
+                    listener = new ApplicationInformation(ProcessNameTB.Text.Trim(), AppNameTB.Text.Trim(), TimeSpan.Parse(LimitCB.Text.Trim()));
+                }
                 this.Close();
             }
             catch (Exception ex)

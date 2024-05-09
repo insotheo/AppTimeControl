@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="AppTimeControl" 
         Height="500" Width="800"
+        MinHeight="400" MinWidth="400"
         WindowStartupLocation="CenterScreen"
         Closing="Window_Closing"
         Icon="/app_icon.ico">
@@ -24,7 +25,7 @@
                 <ColumnDefinition Width="230"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Grid Background="#08444e">
+            <Grid Background="{StaticResource DefaultAccentColor}">
                 <Grid.Resources>
                     <Style TargetType="{x:Type ListBoxItem}">
                         <Setter Property="FontSize" Value="18"/>

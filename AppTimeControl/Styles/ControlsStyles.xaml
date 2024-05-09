@@ -17,6 +17,18 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
+    <Style TargetType="{x:Type PasswordBox}">
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextColor}"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Background" Value="{StaticResource DefalutTextboxBackColor}"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="PasswordChar" Value="*"/>
+    </Style>
+
     <Style TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{StaticResource DefalutButtonBackColor}"/>
         <Setter Property="BorderBrush" Value="Black"/>
@@ -52,5 +64,10 @@
     <Style TargetType="{x:Type ToolTip}">
         <Setter Property="Foreground" Value="Black"/>
     </Style>
-    
+
+    <Style TargetType="{x:Type CheckBox}">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="18"/>
+    </Style>
+
 </ResourceDictionary>

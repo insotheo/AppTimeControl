@@ -1,4 +1,6 @@
 ﻿using AppTimeControl.AppDataClasses;
+using AppTimeControl.Encrypting;
+using AppTimeControl.MessageBoxPressets;
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
@@ -20,19 +22,31 @@ namespace AppTimeControl
         private AppData appData;
         private Thread mainTimerThread;
         private DispatcherTimer mainUITimer;
+        private SecurityData securityData;
 
         public MainWindow()
         {
             if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json")) ||
-                !File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json")))
+                !File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json")) ||
+                !File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "security.data")))
             {
+                foreach(string pathToFile in new string[] { Path.Combine(Directory.GetCurrentDirectory(), "app_data.json"), Path.Combine(Directory.GetCurrentDirectory(), "user_data.json"), Path.Combine(Directory.GetCurrentDirectory(), "security.data") })
+                {
+                    if (File.Exists(pathToFile))
+                    {
+                        File.Delete(pathToFile);
+                    }
+                }
+                mainTimerThread = null;
+                mainUITimer = null;
                 WelcomeWindow welcomeWindow = new WelcomeWindow();
                 welcomeWindow.ShowDialog();
-                this.Close();
             }
             InitializeComponent();
             username = JsonConvert.DeserializeObject<UserData>(File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json"))).UserNickname;
             appData = JsonConvert.DeserializeObject<AppData>(File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json")));
+            securityData = JsonConvert.DeserializeObject<SecurityData>(Encrypter.DecryptString(File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "security.data"))));
+            AuthenticationWindow.password = securityData.SecretPassword;
             if (appData.LastTimeOpened.ToString("D") != DateTime.Now.ToString("D"))
             {
                 foreach (ApplicationInformation app in appData.Apps)
@@ -52,6 +66,7 @@ namespace AppTimeControl
             Notificator.SendNotification("Hello, World!");
             mainTimerThread.Start();
             mainUITimer.Start();
+            GC.Collect();
         }
 
         private void UILoop(object sender, EventArgs e)
@@ -107,9 +122,9 @@ namespace AppTimeControl
                             }
                             appData.LastTimeOpened = DateTime.Now;
                         }
-                        AppData.SaveToFile(ref appData);
-                        Thread.Sleep(1000);
                     }
+                    AppData.SaveToFile(ref appData);
+                    Thread.Sleep(1000);
                 }
             }
             catch { }
@@ -118,25 +133,41 @@ namespace AppTimeControl
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            CreationWindow creation = new CreationWindow(appData.Apps.Select(x => x.AppName).ToArray<string>());
-            creation.ShowDialog();
-            if (creation.listener == null)
+            bool canCreate = true;
+            if (securityData.CreatingNewListener)
             {
-                return;
+                canCreate = MessBox.AskPassword();
             }
-            appData.Apps.Add(creation.listener);
-            UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
+            if (canCreate)
+            {
+                CreationWindow creation = new CreationWindow(appData.Apps.Select(x => x.AppName).ToArray<string>());
+                creation.ShowDialog();
+                if (creation.listener == null)
+                {
+                    return;
+                }
+                appData.Apps.Add(creation.listener);
+                UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
+            }
         }
 
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (AppsLB.SelectedItem == null || AppsLB.Items.Count == 0)
+            bool canRemove = true;
+            if (securityData.RemovingListener)
             {
-                return;
+                canRemove = MessBox.AskPassword();
             }
-            appData.Apps.Remove(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()));
-            UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
-            SearchTB.Text = String.Empty;
+            if (canRemove)
+            {
+                if (AppsLB.SelectedItem == null || AppsLB.Items.Count == 0)
+                {
+                    return;
+                }
+                appData.Apps.Remove(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()));
+                UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
+                SearchTB.Text = String.Empty;
+            }
         }
 
         private void AppsLB_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -170,7 +201,7 @@ namespace AppTimeControl
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
-            CreationWindow creation = new CreationWindow(appData.Apps.Select(x => x.AppName).ToArray<string>(), appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()));
+            CreationWindow creation = new CreationWindow(appData.Apps.Select(x => x.AppName).ToArray<string>(), appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()), ref securityData);
             creation.ShowDialog();
             if (creation.listener == null)
             {
@@ -202,15 +233,31 @@ namespace AppTimeControl
 
         private void ShowWindowBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Show();
-            mainUITimer.Start();
+            bool canShow = true;
+            if (securityData.ShowingWindow)
+            {
+                canShow = MessBox.AskPassword();
+            }
+            if (canShow)
+            {
+                this.Show();
+                mainUITimer.Start();
+            }
         }
 
-        private void FinallyCloseBtn_Click(object sender, RoutedEventArgs e)
+            private void FinallyCloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            mainTimerThread.Abort();
-            mainUITimer.Stop();
-            Environment.Exit(0);
+            bool canClose = true;
+            if (securityData.ClosingWindow)
+            {
+                canClose = MessBox.AskPassword();
+            }
+            if (canClose)
+            {
+                mainTimerThread.Abort();
+                mainUITimer.Stop();
+                Environment.Exit(0);
+            }
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
