@@ -33,7 +33,6 @@ namespace AppTimeControl
             InitializeComponent();
             username = JsonConvert.DeserializeObject<UserData>(File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json"))).UserNickname;
             appData = JsonConvert.DeserializeObject<AppData>(File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "app_data.json")));
-            appData.LastTimeOpened = DateTime.Now;
             if (appData.LastTimeOpened.ToString("D") != DateTime.Now.ToString("D"))
             {
                 foreach (ApplicationInformation app in appData.Apps)
@@ -41,6 +40,7 @@ namespace AppTimeControl
                     app.TimeDone = TimeSpan.Zero;
                 }
             }
+            appData.LastTimeOpened = DateTime.Now;
             UITextChanger.ChangeGreetingText(ref GreetingTB, ref username);
             UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
             mainTimerThread = new Thread(TimerLoop);
