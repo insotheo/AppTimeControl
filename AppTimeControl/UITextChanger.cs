@@ -55,6 +55,11 @@ namespace AppTimeControl
             {
                 timeLeftPB.Foreground = Brushes.Green;
             }
+            if (app.IsPaused)
+            {
+                appNameTB.Text += "(PAUSED)";
+                timeLeftPB.Foreground = Brushes.Gray;
+            }
             totalTimeTB.Text = "Total time: " + app.WorkedInTotal.ToString();
         }
 

@@ -63,6 +63,7 @@
                 <ProgressBar x:Name="TimeLeftPB" Grid.Row="3" Foreground="Green" Margin="2"/>
                 <TextBlock x:Name="TotalTimeTB" Text="totalTime" FontSize="24" Grid.Row="4"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Right">
+                    <Button Content="Pause" Click="PauseBtn_Click" FontSize="18"/>
                     <Button Content="Edit" Click="EditBtn_Click" FontSize="18"/>
                 </StackPanel>
             </Grid>

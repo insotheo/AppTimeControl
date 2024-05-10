@@ -21,6 +21,7 @@ namespace AppTimeControl
             EditingTimeLimitOfListenerCB.IsChecked = SecurityData.ChangingTimLimitOfListener;
             ClosingWindowCB.IsChecked = SecurityData.ClosingWindow;
             ShowingWindowCB.IsChecked = SecurityData.ShowingWindow;
+            EditingPauseStateOfListenerCB.IsChecked = SecurityData.ChangingPauseStateOfListener;
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
@@ -41,6 +42,7 @@ namespace AppTimeControl
             SecurityData.ChangingTimLimitOfListener = (bool)EditingTimeLimitOfListenerCB.IsChecked;
             SecurityData.ClosingWindow = (bool)ClosingWindowCB.IsChecked;
             SecurityData.ShowingWindow = (bool)ShowingWindowCB.IsChecked;
+            SecurityData.ChangingPauseStateOfListener = (bool)EditingPauseStateOfListenerCB.IsChecked;
             this.Close();
         }
     }

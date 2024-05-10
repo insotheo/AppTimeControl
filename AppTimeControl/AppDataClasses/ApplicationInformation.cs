@@ -9,6 +9,7 @@ namespace AppTimeControl.AppDataClasses
         public TimeSpan WorkedInTotal;
         public string ProccessName;
         public string AppName;
+        public bool IsPaused;
 
         public ApplicationInformation(string proccessName, string appName, TimeSpan limit)
         {
@@ -17,6 +18,13 @@ namespace AppTimeControl.AppDataClasses
             AppName = appName;
             TimeDone = TimeSpan.Zero;
             WorkedInTotal = TimeSpan.Zero;
+            IsPaused = false;
         }
+
+        internal void Pause()
+        {
+            IsPaused = !IsPaused;
+        }
+
     }
 }

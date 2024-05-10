@@ -142,6 +142,10 @@ namespace AppTimeControl
                 }
                 if (canCreate)
                 {
+                    if (ProcessNameTB.Text.ToLower().Trim().Equals("apptimecontrol"))
+                    {
+                        throw new Exception("You can't set AppTimeControl as a listener in AppTimeControl!");
+                    }
                     listener = new ApplicationInformation(ProcessNameTB.Text.Trim(), AppNameTB.Text.Trim(), TimeSpan.Parse(LimitCB.Text.Trim()));
                 }
                 this.Close();

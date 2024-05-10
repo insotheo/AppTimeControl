@@ -95,24 +95,27 @@ namespace AppTimeControl
                     {
                         foreach (ApplicationInformation app in appData.Apps)
                         {
-                            Process[] appProcess = Process.GetProcessesByName(app.ProccessName);
-                            if (appProcess.Length > 0)
+                            if (!app.IsPaused)
                             {
-                                app.TimeDone = TimeSpan.FromSeconds(app.TimeDone.TotalSeconds + 1);
-                                app.WorkedInTotal = TimeSpan.FromSeconds(app.WorkedInTotal.TotalSeconds + 1);
-                                if (app.TimeLimit.TotalSeconds - app.TimeLimit.TotalSeconds == 300)
+                                Process[] appProcess = Process.GetProcessesByName(app.ProccessName);
+                                if (appProcess.Length > 0)
                                 {
-                                    Notificator.SendNotification("5 minutes left for " + app.AppName + $"({app.ProccessName})");
-                                }
-                                if (app.TimeDone >= app.TimeLimit)
-                                {
-                                    foreach (Process process in appProcess)
+                                    app.TimeDone = TimeSpan.FromSeconds(app.TimeDone.TotalSeconds + 1);
+                                    app.WorkedInTotal = TimeSpan.FromSeconds(app.WorkedInTotal.TotalSeconds + 1);
+                                    if (app.TimeLimit.TotalSeconds - app.TimeLimit.TotalSeconds == 300)
                                     {
-                                        process.Kill();
+                                        Notificator.SendNotification("5 minutes left for " + app.AppName + $"({app.ProccessName})");
+                                    }
+                                    if (app.TimeDone >= app.TimeLimit)
+                                    {
+                                        foreach (Process process in appProcess)
+                                        {
+                                            process.Kill();
+                                        }
                                     }
                                 }
+                                appProcess = null;
                             }
-                            appProcess = null;
                         }
                         if (appData.LastTimeOpened.ToString("D") != DateTime.Now.ToString("D"))
                         {
@@ -223,12 +226,15 @@ namespace AppTimeControl
                 return;
             }
             var app = appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString());
-            Notificator.SendNotification("----------\n" +
-                $"Application name: {app.AppName}\n" +
-                $"Process name: {app.ProccessName}\n" +
-                $"Time left: {app.TimeLimit - app.TimeDone}\n" +
-                $"Total time: {app.WorkedInTotal}\n" +
-                "----------");
+            string message = $"Application name: {app.AppName}\n" +
+                            $"Process name: {app.ProccessName}\n" +
+                            $"Time left: {app.TimeLimit - app.TimeDone}\n" +
+                            $"Total time: {app.WorkedInTotal}\n";
+            if (app.IsPaused)
+            {
+                message += "----------\nPAUSED";
+            }
+            Notificator.SendNotification(message);
         }
 
         private void ShowWindowBtn_Click(object sender, RoutedEventArgs e)
@@ -277,6 +283,24 @@ namespace AppTimeControl
                 securityData = settings.SecurityData;
                 AuthenticationWindow.password = securityData.SecretPassword;
                 File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "security.data"), Encrypter.EncryptString(JsonConvert.SerializeObject(securityData)));
+            }
+        }
+
+        private void PauseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (AppsLB.SelectedItem == null || AppsLB.Items.Count == 0)
+            {
+                PropertiesGrid.Visibility = Visibility.Hidden;
+                return;
+            }
+            bool canPause = true;
+            if (securityData.ChangingPauseStateOfListener)
+            {
+                canPause = MessBox.AskPassword();
+            }
+            if (canPause)
+            {
+                appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()).Pause();
             }
         }
     }
