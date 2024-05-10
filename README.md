@@ -14,4 +14,7 @@ Please note that while AppTimeControl can run on supported platforms like Window
 
 ## Links:
 [Application Icon](https://www.iconfinder.com/iconsets/circle-icons-1)
-[Download](https://github.com/insotheo/AppTimeControl/releases)
+
+## Download
+
+[Releases](https://github.com/insotheo/AppTimeControl/releases)<br>
