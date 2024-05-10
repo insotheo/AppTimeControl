@@ -1,0 +1,32 @@
+﻿<Window x:Class="AppTimeControl.SecuritySettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppTimeControl"
+        mc:Ignorable="d"
+        Title="AppTimeControl - Security Settings"
+        Height="300" Width="400"
+        Background="{StaticResource DefalutBackgroundColor}"
+        WindowStyle="ToolWindow"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="Security settings" FontWeight="SemiBold" FontSize="32"/>
+            <TextBlock Text="New password:" FontSize="24"/>
+            <PasswordBox x:Name="NewPasswordTB"/>
+            <CheckBox x:Name="CreatingNewListenerCB" Content="Creating a new listener"/>
+            <CheckBox x:Name="RemovingListenerCB" Content="Removing a listener"/>
+            <CheckBox x:Name="EditingAppNameOfListenerCB" Content="Editing an application name of listener"/>
+            <CheckBox x:Name="EditingProcessNameOfListenerCB" Content="Editing a process name of listener"/>
+            <CheckBox x:Name="EditingTimeLimitOfListenerCB" Content="Editing a time limit of listener"/>
+            <CheckBox x:Name="ClosingWindowCB" Content="Closing AppTimeControl window"/>
+            <CheckBox x:Name="ShowingWindowCB" Content="Showing AppTimeControl window"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Cancel" Click="CancelBtn_Click"/>
+                <Button Content="Apply" Click="ApplyBtn_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

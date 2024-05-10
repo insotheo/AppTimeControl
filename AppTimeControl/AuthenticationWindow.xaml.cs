@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 using System;
 using AppTimeControl.MessageBoxPressets;
 
@@ -17,13 +18,19 @@ namespace AppTimeControl
         {
             InitializeComponent();
             this.Closing += (object sender, CancelEventArgs e) => { PasswordTB.Password = String.Empty; };
+            PasswordTB.Focus();
         }
 
         private void ContinueBtn_Click(object sender, RoutedEventArgs e)
         {
+            ConfirmAndContinue();
+        }
+
+        private void ConfirmAndContinue()
+        {
             try
             {
-                if(string.IsNullOrEmpty(PasswordTB.Password))
+                if (string.IsNullOrEmpty(PasswordTB.Password))
                 {
                     throw new Exception("You can't leave the password field blank!");
                 }
@@ -37,7 +44,7 @@ namespace AppTimeControl
                     throw new Exception("The entered password is incorrect!");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessBox.ShowError(ex.Message);
             }
@@ -47,6 +54,28 @@ namespace AppTimeControl
         {
             IsConfirmed = false;
             this.Close();
+        }
+
+        private void PasswordTB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                ConfirmAndContinue();
+            }
+            else if (e.Key == Key.Escape)
+            {
+                IsConfirmed = false;
+                this.Close();
+            }
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                IsConfirmed = false;
+                this.Close();
+            }
         }
     }
 }

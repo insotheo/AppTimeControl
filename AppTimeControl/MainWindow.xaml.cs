@@ -153,6 +153,10 @@ namespace AppTimeControl
 
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (AppsLB.SelectedItem == null || AppsLB.Items.Count == 0)
+            {
+                return;
+            }
             bool canRemove = true;
             if (securityData.RemovingListener)
             {
@@ -160,10 +164,6 @@ namespace AppTimeControl
             }
             if (canRemove)
             {
-                if (AppsLB.SelectedItem == null || AppsLB.Items.Count == 0)
-                {
-                    return;
-                }
                 appData.Apps.Remove(appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()));
                 UITextChanger.AddItemsToList(ref AppsLB, ref appData.Apps);
                 SearchTB.Text = String.Empty;
@@ -245,7 +245,7 @@ namespace AppTimeControl
             }
         }
 
-            private void FinallyCloseBtn_Click(object sender, RoutedEventArgs e)
+        private void FinallyCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             bool canClose = true;
             if (securityData.ClosingWindow)
@@ -265,6 +265,19 @@ namespace AppTimeControl
             e.Cancel = true;
             mainUITimer.Stop();
             this.Hide();
+        }
+
+        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            bool canWork = MessBox.AskPassword();
+            if (canWork)
+            {
+                SecuritySettings settings = new SecuritySettings(ref securityData);
+                settings.ShowDialog();
+                securityData = settings.SecurityData;
+                AuthenticationWindow.password = securityData.SecretPassword;
+                File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "security.data"), Encrypter.EncryptString(JsonConvert.SerializeObject(securityData)));
+            }
         }
     }
 }

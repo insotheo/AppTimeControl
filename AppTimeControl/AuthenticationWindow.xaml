@@ -11,7 +11,8 @@
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        Background="Transparent">
+        Background="Transparent"
+        KeyDown="Window_KeyDown">
     <Grid>
         <Border Background="Black" Opacity="0.5" Panel.ZIndex="0"/>
         
@@ -24,7 +25,7 @@
                 BorderThickness="2">
             <StackPanel Margin="5 5 5 0">
                 <TextBlock Text="Enter your password below to confirm your actions" FontSize="22"/>
-                <PasswordBox x:Name="PasswordTB" FontSize="18" Margin="0 5"/>
+                <PasswordBox x:Name="PasswordTB" FontSize="18" Margin="0 5" KeyDown="PasswordTB_KeyDown"/>
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Cancel" Click="CancelBtn_Click"/>
                     <Button Content="Continue" Click="ContinueBtn_Click"/>
