@@ -102,9 +102,17 @@ namespace AppTimeControl
                                 {
                                     app.TimeDone = TimeSpan.FromSeconds(app.TimeDone.TotalSeconds + 1);
                                     app.WorkedInTotal = TimeSpan.FromSeconds(app.WorkedInTotal.TotalSeconds + 1);
-                                    if (app.TimeLimit.TotalSeconds - app.TimeLimit.TotalSeconds == 300)
+                                    if (app.TimeLimit > TimeSpan.FromMinutes(5) && (app.TimeLimit - app.TimeDone).TotalSeconds == 300)
                                     {
-                                        Notificator.SendNotification("5 minutes left for " + app.AppName + $"({app.ProccessName})");
+                                        Notificator.SendNotification($"5 minutes left for {app.AppName} ({app.ProccessName})");
+                                    }
+                                    else if(app.TimeLimit >= TimeSpan.FromMinutes(1) && (app.TimeLimit - app.TimeDone).TotalSeconds == 60)
+                                    {
+                                        Notificator.SendNotification($"1 minute left for {app.AppName} ({app.ProccessName})");
+                                    }
+                                    else if((app.TimeLimit - app.TimeDone).TotalSeconds == 30)
+                                    {
+                                        Notificator.SendNotification($"30 seconds left for {app.AppName} ({app.ProccessName})");
                                     }
                                     if (app.TimeDone >= app.TimeLimit)
                                     {
