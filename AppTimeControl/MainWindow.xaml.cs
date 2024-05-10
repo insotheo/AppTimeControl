@@ -311,5 +311,18 @@ namespace AppTimeControl
                 appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()).Pause();
             }
         }
+
+        private void ResetTimerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            bool canReset = true;
+            if (securityData.ResetingTimerOfListener)
+            {
+                canReset = MessBox.AskPassword();
+            }
+            if (canReset)
+            {
+                appData.Apps.First(x => x.AppName == AppsLB.SelectedItem.ToString()).TimeDone = TimeSpan.Zero;
+            }
+        }
     }
 }

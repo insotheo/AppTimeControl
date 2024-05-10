@@ -22,6 +22,7 @@ namespace AppTimeControl
             ClosingWindowCB.IsChecked = SecurityData.ClosingWindow;
             ShowingWindowCB.IsChecked = SecurityData.ShowingWindow;
             EditingPauseStateOfListenerCB.IsChecked = SecurityData.ChangingPauseStateOfListener;
+            ResetingTimerOfListenerCB.IsChecked = SecurityData.ResetingTimerOfListener;
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
@@ -43,6 +44,7 @@ namespace AppTimeControl
             SecurityData.ClosingWindow = (bool)ClosingWindowCB.IsChecked;
             SecurityData.ShowingWindow = (bool)ShowingWindowCB.IsChecked;
             SecurityData.ChangingPauseStateOfListener = (bool)EditingPauseStateOfListenerCB.IsChecked;
+            SecurityData.ResetingTimerOfListener = (bool)ResetingTimerOfListenerCB.IsChecked;
             this.Close();
         }
     }

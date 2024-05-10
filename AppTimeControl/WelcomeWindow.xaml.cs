@@ -75,7 +75,8 @@ namespace AppTimeControl
                         (bool)EditingTimeLimitOfListenerCB.IsChecked,
                         (bool)ClosingWindowCB.IsChecked,
                         (bool)ShowingWindowCB.IsChecked,
-                        (bool)EditingPauseStateOfListenerCB.IsChecked);
+                        (bool)EditingPauseStateOfListenerCB.IsChecked,
+                        (bool)ResetingTimerOfListenerCB.IsChecked);
                     FileStream securityFile = File.Create(Path.Combine(Directory.GetCurrentDirectory(), "security.data"));
                     securityFile.Close();
                     File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "security.data"), Encrypter.EncryptString(JsonConvert.SerializeObject(securityData)));

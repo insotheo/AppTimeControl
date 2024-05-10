@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AppTimeControl"
         mc:Ignorable="d"
         Title="AppTimeControl - Security Settings"
-        Height="330" Width="400"
+        Height="340" Width="400"
         Background="{StaticResource DefalutBackgroundColor}"
         WindowStyle="ToolWindow"
         WindowStartupLocation="CenterOwner"
@@ -22,6 +22,7 @@
             <CheckBox x:Name="EditingProcessNameOfListenerCB" Content="Editing a process name of listener"/>
             <CheckBox x:Name="EditingTimeLimitOfListenerCB" Content="Editing a time limit of listener"/>
             <CheckBox x:Name="EditingPauseStateOfListenerCB" Content="Pause listener"/>
+            <CheckBox x:Name="ResetingTimerOfListenerCB" Content="Reseting timer of listener"/>
             <CheckBox x:Name="ClosingWindowCB" Content="Closing AppTimeControl window"/>
             <CheckBox x:Name="ShowingWindowCB" Content="Showing AppTimeControl window"/>
             <StackPanel Orientation="Horizontal">

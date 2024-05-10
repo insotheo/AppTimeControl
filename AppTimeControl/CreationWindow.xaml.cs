@@ -139,6 +139,11 @@ namespace AppTimeControl
                         canCreate = MessBox.AskPassword();
                         alreadyAskedPassword = true;
                     }
+                    if(!canCreate && (!changeAppName || !changeProcessName || !changeTimeLimit) && !alreadyAskedPassword)
+                    {
+                        canCreate = true;
+                        alreadyAskedPassword = true;
+                    }
                 }
                 if (canCreate)
                 {

@@ -58,6 +58,7 @@
                     <CheckBox x:Name="EditingProcessNameOfListenerCB" Content="Editing a process name of listener"/>
                     <CheckBox x:Name="EditingTimeLimitOfListenerCB" Content="Editing a time limit of listener"/>
                     <CheckBox x:Name="EditingPauseStateOfListenerCB" Content="Pause listener"/>
+                    <CheckBox x:Name="ResetingTimerOfListenerCB" Content="Reseting timer of listener"/>
                     <CheckBox x:Name="ClosingWindowCB" Content="Closing AppTimeControl window"/>
                     <CheckBox x:Name="ShowingWindowCB" Content="Showing AppTimeControl window"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

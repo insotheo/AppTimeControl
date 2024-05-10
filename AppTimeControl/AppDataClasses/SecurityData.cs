@@ -12,8 +12,9 @@
         public bool ClosingWindow;
         public bool ShowingWindow;
         public bool ChangingPauseStateOfListener;
+        public bool ResetingTimerOfListener;
 
-        public SecurityData(string secretPassword, bool creatingNewListener, bool removingListener, bool changingAppNameOfListener, bool changingProcessNameOfListener, bool changingTimLimitOfListener, bool closingWindow, bool showingWindow, bool changingPauseStateOfListener)
+        public SecurityData(string secretPassword, bool creatingNewListener, bool removingListener, bool changingAppNameOfListener, bool changingProcessNameOfListener, bool changingTimLimitOfListener, bool closingWindow, bool showingWindow, bool changingPauseStateOfListener, bool resetingTimerOfListener)
         {
             SecretPassword = secretPassword;
             CreatingNewListener = creatingNewListener;
@@ -24,6 +25,7 @@
             ClosingWindow = closingWindow;
             ShowingWindow = showingWindow;
             ChangingPauseStateOfListener = changingPauseStateOfListener;
+            ResetingTimerOfListener = resetingTimerOfListener;
         }
     }
 }
