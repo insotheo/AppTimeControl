@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using AppTimeControl.MessageBoxPressets;
+using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using System;
-using AppTimeControl.MessageBoxPressets;
 
 namespace AppTimeControl
 {
@@ -58,7 +58,7 @@ namespace AppTimeControl
 
         private void PasswordTB_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter)
+            if (e.Key == Key.Enter)
             {
                 ConfirmAndContinue();
             }

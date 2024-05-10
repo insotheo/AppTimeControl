@@ -84,7 +84,7 @@ namespace AppTimeControl
                     Environment.Exit(0);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessBox.ShowError(ex.Message);
             }

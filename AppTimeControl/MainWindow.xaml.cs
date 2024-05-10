@@ -30,7 +30,7 @@ namespace AppTimeControl
                 !File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "user_data.json")) ||
                 !File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "security.data")))
             {
-                foreach(string pathToFile in new string[] { Path.Combine(Directory.GetCurrentDirectory(), "app_data.json"), Path.Combine(Directory.GetCurrentDirectory(), "user_data.json"), Path.Combine(Directory.GetCurrentDirectory(), "security.data") })
+                foreach (string pathToFile in new string[] { Path.Combine(Directory.GetCurrentDirectory(), "app_data.json"), Path.Combine(Directory.GetCurrentDirectory(), "user_data.json"), Path.Combine(Directory.GetCurrentDirectory(), "security.data") })
                 {
                     if (File.Exists(pathToFile))
                     {
@@ -106,11 +106,11 @@ namespace AppTimeControl
                                     {
                                         Notificator.SendNotification($"5 minutes left for {app.AppName} ({app.ProccessName})");
                                     }
-                                    else if(app.TimeLimit >= TimeSpan.FromMinutes(1) && (app.TimeLimit - app.TimeDone).TotalSeconds == 60)
+                                    else if (app.TimeLimit >= TimeSpan.FromMinutes(1) && (app.TimeLimit - app.TimeDone).TotalSeconds == 60)
                                     {
                                         Notificator.SendNotification($"1 minute left for {app.AppName} ({app.ProccessName})");
                                     }
-                                    else if((app.TimeLimit - app.TimeDone).TotalSeconds == 30)
+                                    else if ((app.TimeLimit - app.TimeDone).TotalSeconds == 30)
                                     {
                                         Notificator.SendNotification($"30 seconds left for {app.AppName} ({app.ProccessName})");
                                     }
